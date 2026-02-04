@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamUpdate - Your Trusted Source for Exam News</title>
+  <meta name="description" content="Get the latest exam notifications, results, admit cards, and syllabus for UPSC, SSC, Banking, Railways, and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* CSS Reset & Variables */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --background: hsl(45, 30%, 97%);
+      --foreground: hsl(220, 20%, 10%);
+      --card: hsl(45, 25%, 95%);
+      --card-foreground: hsl(220, 20%, 10%);
+      --primary: hsl(0, 65%, 35%);
+      --primary-foreground: hsl(45, 30%, 97%);
+      --secondary: hsl(220, 15%, 20%);
+      --secondary-foreground: hsl(45, 30%, 97%);
+      --muted: hsl(45, 15%, 90%);
+      --muted-foreground: hsl(220, 10%, 45%);
+      --accent: hsl(45, 40%, 92%);
+      --border: hsl(220, 15%, 85%);
+      --gold: hsl(42, 80%, 55%);
+      --green: hsl(142, 70%, 35%);
+      --amber: hsl(38, 90%, 50%);
+      
+      --headline-font: 'Playfair Display', Georgia, serif;
+      --body-font: 'Source Serif 4', Georgia, serif;
+      --ui-font: 'Inter', system-ui, sans-serif;
+      
+      --shadow-soft: 0 2px 8px hsla(220, 20%, 10%, 0.08);
+      --shadow-medium: 0 4px 16px hsla(220, 20%, 10%, 0.12);
+    }
+
+    body {
+      font-family: var(--body-font);
+      background-color: var(--background);
+      color: var(--foreground);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Typography */
+    .headline-xl {
+      font-family: var(--headline-font);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .headline-lg {
+      font-family: var(--headline-font);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .headline-md {
+      font-family: var(--headline-font);
+      font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .headline-sm {
+      font-family: var(--headline-font);
+      font-size: 1.125rem;
+      font-weight: 500;
+    }
+
+    .body-text {
+      font-family: var(--body-font);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .ui-text {
+      font-family: var(--ui-font);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .category-badge {
+      font-family: var(--ui-font);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+    }
+
+    .date-text {
+      font-family: var(--ui-font);
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--background);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .top-bar {
+      background: var(--secondary);
+      color: var(--secondary-foreground);
+      padding: 0.5rem 0;
+    }
+
+    .top-bar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .top-bar-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .top-bar-icons button {
+      background: none;
+      border: none;
+      color: var(--secondary-foreground);
+      cursor: pointer;
+      padding: 0.25rem;
+      transition: color 0.2s;
+    }
+
+    .top-bar-icons button:hover {
+      color: var(--gold);
+    }
+
+    .logo-section {
+      text-align: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo-section h1 span {
+      color: var(--primary);
+    }
+
+    .logo-tagline {
+      font-family: var(--ui-font);
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+      letter-spacing: 0.2em;
+      margin-top: 0.25rem;
+    }
+
+    .main-nav {
+      display: none;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 3px double var(--border);
+    }
+
+    .main-nav a {
+      font-family: var(--ui-font);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--foreground);
+      opacity: 0.8;
+      transition: all 0.2s;
+    }
+
+    .main-nav a:hover {
+      color: var(--primary);
+      opacity: 1;
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+      justify-content: flex-end;
+      padding: 1rem 0;
+    }
+
+    .mobile-menu-btn button {
+      background: none;
+      border: none;
+      padding: 0.5rem;
+      cursor: pointer;
+      color: var(--foreground);
+    }
+
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .mobile-nav.active {
+      display: flex;
+    }
+
+    .mobile-nav a {
+      font-family: var(--ui-font);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    @media (min-width: 768px) {
+      .main-nav {
+        display: flex;
+      }
+      .mobile-menu-btn,
+      .mobile-nav {
+        display: none !important;
+      }
+    }
+
+    /* Breaking News */
+    .breaking-news {
+      background: var(--primary);
+      color: var(--primary-foreground);
+      overflow: hidden;
+    }
+
+    .breaking-news .container {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+    }
+
+    .breaking-label {
+      font-family: var(--ui-font);
+      font-weight: 700;
+      background: var(--primary-foreground);
+      color: var(--primary);
+      padding: 0.25rem 0.75rem;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+
+    .breaking-marquee {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .breaking-marquee-inner {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 30s linear infinite;
+    }
+
+    .breaking-marquee-inner span {
+      font-family: var(--ui-font);
+      margin: 0 2rem;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Main Content */
+    main {
+      padding: 2rem 0;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+      .content-grid {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+
+    /* Hero Section */
+    .hero-section {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+
+    .news-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.25rem;
+      padding: 1.5rem;
+      transition: all 0.3s;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .news-card:hover {
+      box-shadow: var(--shadow-medium);
+      border-color: hsla(0, 65%, 35%, 0.3);
+    }
+
+    .hero-featured .headline-xl {
+      margin: 0.75rem 0 1rem;
+    }
+
+    .hero-featured .body-text {
+      color: var(--muted-foreground);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    .hero-meta-time {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-meta a {
+      font-family: var(--ui-font);
+      color: var(--primary);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: opacity 0.2s;
+    }
+
+    .hero-meta a:hover {
+      opacity: 0.8;
+    }
+
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .hero-side .news-card .headline-md {
+      margin: 0.5rem 0;
+    }
+
+    .hero-side .news-card .body-text {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Section Header */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header a {
+      font-family: var(--ui-font);
+      color: var(--primary);
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .section-header a:hover {
+      opacity: 0.8;
+    }
+
+    /* Exam Cards */
+    .exam-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .exam-card {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .exam-card-content {
+      flex: 1;
+    }
+
+    .exam-card-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .type-badge {
+      font-family: var(--ui-font);
+      font-size: 0.75rem;
+      padding: 0.125rem 0.5rem;
+      border-radius: 0.25rem;
+    }
+
+    .type-badge.notification {
+      background: hsla(0, 65%, 35%, 0.1);
+      color: var(--primary);
+    }
+
+    .type-badge.result {
+      background: hsla(142, 70%, 35%, 0.1);
+      color: var(--green);
+    }
+
+    .type-badge.admit-card {
+      background: hsla(38, 90%, 50%, 0.1);
+      color: var(--amber);
+    }
+
+    .exam-card .headline-sm {
+      transition: color 0.2s;
+    }
+
+    .exam-card:hover .headline-sm {
+      color: var(--primary);
+    }
+
+    .exam-card .body-text {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .exam-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .exam-card-dates {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .exam-card-dates > div {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .exam-card-dates .last-date {
+      color: var(--primary);
+    }
+
+    .exam-card-link {
+      font-family: var(--ui-font);
+      font-size: 0.875rem;
+      color: var(--primary);
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: opacity 0.2s;
+    }
+
+    .exam-card:hover .exam-card-link {
+      opacity: 1;
+    }
+
+    .exam-card-icon {
+      display: none;
+      width: 3rem;
+      height: 3rem;
+      background: var(--muted);
+      border-radius: 0.25rem;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 640px) {
+      .exam-card-icon {
+        display: flex;
+      }
+    }
+
+    .load-more {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .load-more button {
+      font-family: var(--ui-font);
+      font-weight: 500;
+      padding: 0.75rem 2rem;
+      border: 2px solid var(--primary);
+      background: transparent;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .load-more button:hover {
+      background: var(--primary);
+      color: var(--primary-foreground);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .sidebar-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.25rem;
+      padding: 1.5rem;
+    }
+
+    .sidebar-title {
+      font-family: var(--headline-font);
+      font-size: 1.125rem;
+      font-weight: 600;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    /* Categories */
+    .category-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .category-tag {
+      font-family: var(--ui-font);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      background: var(--background);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .category-tag:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Trending */
+    .trending-list {
+      counter-reset: trending;
+    }
+
+    .trending-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .trending-item:last-child {
+      border-bottom: none;
+    }
+
+    .trending-item:hover {
+      color: var(--primary);
+    }
+
+    .trending-item::before {
+      counter-increment: trending;
+      content: counter(trending);
+      font-family: var(--headline-font);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      opacity: 0.3;
+      min-width: 1.5rem;
+    }
+
+    .trending-item p {
+      font-family: var(--body-font);
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+
+    /* Important Dates */
+    .dates-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .date-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.75rem;
+      background: var(--background);
+      border-radius: 0.25rem;
+    }
+
+    .date-item-name {
+      font-family: var(--ui-font);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .date-item-date {
+      font-family: var(--ui-font);
+      font-size: 0.75rem;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    .footer-main {
+      padding: 3rem 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+      }
+    }
+
+    .footer-brand h2 {
+      font-family: var(--headline-font);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand h2 span {
+      color: var(--gold);
+    }
+
+    .footer-brand p {
+      font-size: 0.875rem;
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-contact a,
+    .footer-contact p {
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .footer-contact a:hover {
+      color: var(--gold);
+    }
+
+    .footer-section h3 {
+      font-family: var(--headline-font);
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .footer-section ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-section a {
+      font-size: 0.875rem;
+      opacity: 0.8;
+      transition: all 0.2s;
+    }
+
+    .footer-section a:hover {
+      color: var(--gold);
+      opacity: 1;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid hsla(45, 30%, 97%, 0.2);
+      padding: 1.5rem 0;
+    }
+
+    .footer-bottom .container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .footer-bottom .container {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+
+    .footer-bottom p {
+      font-size: 0.875rem;
+      opacity: 0.6;
+    }
+
+    /* Icons (inline SVG) */
+    .icon {
+      width: 1rem;
+      height: 1rem;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .icon-lg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="container">
+        <p class="date-text" id="currentDate"></p>
+        <div class="top-bar-icons">
+          <button aria-label="Search">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+          <button aria-label="Notifications">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Logo Section -->
+    <div class="container">
+      <div class="logo-section">
+        <a href="/">
+          <h1 class="headline-xl">Exam<span>Update</span></h1>
+          <p class="logo-tagline">YOUR TRUSTED SOURCE FOR EXAM NEWS</p>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="main-nav">
+        <a href="/">Home</a>
+        <a href="#exams">Exams</a>
+        <a href="#results">Results</a>
+        <a href="#admit-cards">Admit Cards</a>
+        <a href="#syllabus">Syllabus</a>
+        <a href="#notifications">Notifications</a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <div class="mobile-menu-btn">
+        <button id="menuToggle" aria-label="Toggle menu">
+          <svg class="icon-lg" id="menuIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <svg class="icon-lg" id="closeIcon" style="display: none;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <nav class="mobile-nav" id="mobileNav">
+        <a href="/">Home</a>
+        <a href="#exams">Exams</a>
+        <a href="#results">Results</a>
+        <a href="#admit-cards">Admit Cards</a>
+        <a href="#syllabus">Syllabus</a>
+        <a href="#notifications">Notifications</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Breaking News -->
+  <div class="breaking-news">
+    <div class="container">
+      <span class="breaking-label">BREAKING</span>
+      <div class="breaking-marquee">
+        <div class="breaking-marquee-inner">
+          <span>UPSC CSE 2024 Prelims Results Declared</span>
+          <span>SSC CGL Application Deadline Extended to Feb 15</span>
+          <span>IBPS PO Interview Schedule Released</span>
+          <span>RRB NTPC Admit Cards Available for Download</span>
+          <span>NTA Announces CUET 2025 Exam Dates</span>
+          <span>UPSC CSE 2024 Prelims Results Declared</span>
+          <span>SSC CGL Application Deadline Extended to Feb 15</span>
+          <span>IBPS PO Interview Schedule Released</span>
+          <span>RRB NTPC Admit Cards Available for Download</span>
+          <span>NTA Announces CUET 2025 Exam Dates</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-grid">
+          <!-- Featured Article -->
+          <article class="news-card hero-featured">
+            <span class="category-badge">Breaking News</span>
+            <h2 class="headline-xl">UPSC Civil Services 2024 Prelims Results Announced: Check Your Score Now</h2>
+            <p class="body-text">
+              The Union Public Service Commission has released the results for the Civil Services 
+              Preliminary Examination 2024. Over 10 lakh candidates appeared for the examination 
+              conducted across 77 cities nationwide. Successful candidates can now download their 
+              scorecards and check the cut-off marks for the Main examination.
+            </p>
+            <div class="hero-meta">
+              <div class="hero-meta-time date-text">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>2 hours ago</span>
+              </div>
+              <a href="#" class="ui-text">
+                Read Full Story
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Side Featured -->
+          <div class="hero-side">
+            <article class="news-card">
+              <span class="category-badge">SSC</span>
+              <h3 class="headline-md">SSC CGL 2024 Application Deadline Extended</h3>
+              <p class="body-text">Staff Selection Commission extends the last date for online application submission.</p>
+              <p class="date-text" style="margin-top: 0.75rem;">4 hours ago</p>
+            </article>
+
+            <article class="news-card">
+              <span class="category-badge">Banking</span>
+              <h3 class="headline-md">IBPS PO Interview Schedule Released</h3>
+              <p class="body-text">Institute of Banking Personnel Selection announces interview dates for shortlisted candidates.</p>
+              <p class="date-text" style="margin-top: 0.75rem;">6 hours ago</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Grid -->
+      <div class="content-grid">
+        <!-- Main Column -->
+        <div>
+          <div class="section-header">
+            <h2 class="headline-lg">Latest Updates</h2>
+            <a href="#">View All →</a>
+          </div>
+
+          <div class="exam-cards">
+            <!-- Card 1 -->
+            <article class="news-card exam-card">
+              <div class="exam-card-content">
+                <div class="exam-card-badges">
+                  <span class="category-badge">UPSC</span>
+                  <span class="type-badge notification">notification</span>
+                </div>
+                <h3 class="headline-sm">UPSC Engineering Services Prelims 2024 Notification Released</h3>
+                <p class="body-text">Union Public Service Commission has released the notification for ESE Preliminary Examination 2024. Eligible candidates can apply online through the official website.</p>
+                <div class="exam-card-meta">
+                  <div class="exam-card-dates">
+                    <div class="date-text">
+                      <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      Jan 28, 2025
+                    </div>
+                    <div class="date-text last-date">
+                      <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                      </svg>
+                      Last Date: Feb 20, 2025
+                    </div>
+                  </div>
+                  <a href="#" class="exam-card-link">
+                    Details
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div class="exam-card-icon">
+                <svg class="icon-lg" style="color: var(--muted-foreground);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="news-card exam-card">
+              <div class="exam-card-content">
+                <div class="exam-card-badges">
+                  <span class="category-badge">SSC</span>
+                  <span class="type-badge result">result</span>
+                </div>
+                <h3 class="headline-sm">SSC CHSL 2024 Tier 1 Result Declared</h3>
+                <p class="body-text">Staff Selection Commission has announced the results for Combined Higher Secondary Level Examination Tier 1. Check your score and cut-off marks.</p>
+                <div class="exam-card-meta">
+                  <div class="exam-card-dates">
+                    <div class="date-text">
+                      <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      Jan 27, 2025
+                    </div>
+                  </div>
+                  <a href="#" class="exam-card-link">
+                    Details
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div class="exam-card-icon">
+                <svg class="icon-lg" style="color: var(--muted-foreground);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="news-card exam-card">
+              <div class="exam-card-content">
+                <div class="exam-card-badges">
+                  <span class="category-badge">Banking</span>
+                  <span class="type-badge admit-card">admit card</span>
+                </div>
+                <h3 class="headline-sm">SBI Clerk 2024 Admit Card Released</h3>
+                <p class="body-text">State Bank of India has released the admit cards for Junior Associate (Clerk) Preliminary Examination. Download your hall ticket now.</p>
+                <div class="exam-card-meta">
+                  <div class="exam-card-dates">
+                    <div class="date-text">
+                      <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      Jan 26, 2025
+                    </div>
+                  </div>
+                  <a href="#" class="exam-card-link">
+                    Details
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div class="exam-card-icon">
+                <svg class="icon-lg" style="color: var(--muted-foreground);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="news-card exam-card">
+              <div class="exam-card-content">
+                <div class="exam-card-badges">
+                  <span class="category-badge">Railways</span>
+                  <span class="type-badge notification">notification</span>
+                </div>
+                <h3 class="headline-sm">RRB Group D 2024 Phase 2 Exam Date Announced</h3>
+                <p class="body-text">Railway Recruitment Boards announce the schedule for RRB Group D Phase 2 CBT examination across all zones.</p>
+                <div class="exam-card-meta">
+                  <div class="exam-card-dates">
+                    <div class="date-text">
+                      <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      Jan 25, 2025
+                    </div>
+                    <div class="date-text last-date">
+                      <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                      </svg>
+                      Last Date: Mar 15, 2025
+                    </div>
+                  </div>
+                  <a href="#" class="exam-card-link">
+                    Details
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div class="exam-card-icon">
+                <svg class="icon-lg" style="color: var(--muted-foreground);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="news-card exam-card">
+              <div class="exam-card-content">
+                <div class="exam-card-badges">
+                  <span class="category-badge">Teaching</span>
+                  <span class="type-badge result">result</span>
+                </div>
+                <h3 class="headline-sm">CTET January 2025 Answer Key Released</h3>
+                <p class="body-text">Central Board of Secondary Education releases the provisional answer key for CTET January 2025 examination. Raise objections if any.</p>
+                <div class="exam-card-meta">
+                  <div class="exam-card-dates">
+                    <div class="date-text">
+                      <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      Jan 24, 2025
+                    </div>
+                  </div>
+                  <a href="#" class="exam-card-link">
+                    Details
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div class="exam-card-icon">
+                <svg class="icon-lg" style="color: var(--muted-foreground);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="news-card exam-card">
+              <div class="exam-card-content">
+                <div class="exam-card-badges">
+                  <span class="category-badge">Defence</span>
+                  <span class="type-badge notification">notification</span>
+                </div>
+                <h3 class="headline-sm">NDA 1 2025 Application Form Available</h3>
+                <p class="body-text">UPSC has started accepting applications for National Defence Academy I Examination 2025. Apply before the last date.</p>
+                <div class="exam-card-meta">
+                  <div class="exam-card-dates">
+                    <div class="date-text">
+                      <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      Jan 23, 2025
+                    </div>
+                    <div class="date-text last-date">
+                      <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                      </svg>
+                      Last Date: Feb 12, 2025
+                    </div>
+                  </div>
+                  <a href="#" class="exam-card-link">
+                    Details
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div class="exam-card-icon">
+                <svg class="icon-lg" style="color: var(--muted-foreground);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+            </article>
+          </div>
+
+          <div class="load-more">
+            <button>Load More Updates</button>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <!-- Categories -->
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">Exam Categories</h3>
+            <div class="category-list">
+              <span class="category-tag">UPSC</span>
+              <span class="category-tag">SSC</span>
+              <span class="category-tag">Banking</span>
+              <span class="category-tag">Railways</span>
+              <span class="category-tag">Teaching</span>
+              <span class="category-tag">Defence</span>
+              <span class="category-tag">State PSC</span>
+              <span class="category-tag">University</span>
+            </div>
+          </div>
+
+          <!-- Trending -->
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">Trending Now</h3>
+            <div class="trending-list">
+              <div class="trending-item">
+                <p>UPSC CSE 2024 cut-off marks analysis and predictions</p>
+              </div>
+              <div class="trending-item">
+                <p>SSC CGL vs SSC CHSL: Which exam should you prepare for?</p>
+              </div>
+              <div class="trending-item">
+                <p>Bank PO preparation strategy for beginners</p>
+              </div>
+              <div class="trending-item">
+                <p>Railway Group D physical test requirements</p>
+              </div>
+              <div class="trending-item">
+                <p>CTET preparation tips from toppers</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Important Dates -->
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">Important Dates</h3>
+            <div class="dates-list">
+              <div class="date-item">
+                <span class="date-item-name">UPSC ESE Prelims</span>
+                <span class="date-item-date">Feb 20, 2025</span>
+              </div>
+              <div class="date-item">
+                <span class="date-item-name">SSC CGL Last Date</span>
+                <span class="date-item-date">Feb 15, 2025</span>
+              </div>
+              <div class="date-item">
+                <span class="date-item-name">IBPS PO Interview</span>
+                <span class="date-item-date">Feb 10, 2025</span>
+              </div>
+              <div class="date-item">
+                <span class="date-item-name">RRB Group D Phase 2</span>
+                <span class="date-item-date">Mar 15, 2025</span>
+              </div>
+              <div class="date-item">
+                <span class="date-item-name">NDA I Last Date</span>
+                <span class="date-item-date">Feb 12, 2025</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="container">
+        <div class="footer-grid">
+          <!-- Brand -->
+          <div class="footer-brand">
+            <h2>Exam<span>Update</span></h2>
+            <p>Your trusted source for the latest exam notifications, results, and admit cards. Stay updated with all government and competitive exam news.</p>
+            <div class="footer-contact">
+              <a href="mailto:info@examupdate.com">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                info@examupdate.com
+              </a>
+              <a href="tel:+911234567890">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                +91 123 456 7890
+              </a>
+              <p>
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                New Delhi, India
+              </p>
+            </div>
+          </div>
+
+          <!-- Popular Exams -->
+          <div class="footer-section">
+            <h3>Popular Exams</h3>
+            <ul>
+              <li><a href="#">UPSC</a></li>
+              <li><a href="#">SSC</a></li>
+              <li><a href="#">Banking</a></li>
+              <li><a href="#">Railways</a></li>
+              <li><a href="#">Teaching</a></li>
+            </ul>
+          </div>
+
+          <!-- Resources -->
+          <div class="footer-section">
+            <h3>Resources</h3>
+            <ul>
+              <li><a href="#">Syllabus</a></li>
+              <li><a href="#">Previous Papers</a></li>
+              <li><a href="#">Study Material</a></li>
+              <li><a href="#">Mock Tests</a></li>
+              <li><a href="#">Current Affairs</a></li>
+            </ul>
+          </div>
+
+          <!-- Company -->
+          <div class="footer-section">
+            <h3>Company</h3>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Advertise</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2025 ExamUpdate. All rights reserved.</p>
+        <p>Trusted by millions of aspirants across India</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Set current date
+    document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const menuIcon = document.getElementById('menuIcon');
+    const closeIcon = document.getElementById('closeIcon');
+
+    menuToggle.addEventListener('click', () => {
+      mobileNav.classList.toggle('active');
+      if (mobileNav.classList.contains('active')) {
+        menuIcon.style.display = 'none';
+        closeIcon.style.display = 'block';
+      } else {
+        menuIcon.style.display = 'block';
+        closeIcon.style.display = 'none';
+      }
+    });
+
+    // Close mobile menu on link click
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('active');
+        menuIcon.style.display = 'block';
+        closeIcon.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>

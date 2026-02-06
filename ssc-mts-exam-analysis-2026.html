@@ -931,6 +931,14 @@
       msg.classList.add("hidden");
     }, 4000);
   });
+
+    if (!sessionStorage.getItem("visited")) {
+  sessionStorage.setItem("visited", "1");
+
+  fetch("https://script.google.com/macros/s/AKfycbwIr9LhXHYp3WcwOCydc6zsuJL1PVCs202-Ga5Z9BLr59cpcaxHp8K94Gojy-y141li/exec")
+    .catch(() => {});
+}
+
   </script>
 
  <script type="application/ld+json">

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#1a2332',
+            burgundy: '#8B2635',
+            gold: '#D4A853',
+          },
+          maxWidth: {
+            '8xl': '90rem'
+          }
+        }
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white border-b border-gray-200 w-full">
+
+    <!-- Main Navbar -->
+    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 py-2">
+
+      <!-- Logo Row -->
+      <div class="relative flex items-center justify-center border-b border-gray-200 pb-3 px-3">
+
+        <!-- Logo -->
+        <a href="https://freemocktestadda.in/" class="flex flex-col items-center">
+
+          <div class="text-4xl max-[482px]:text-3xl max-[382px]:text-2xl md:text-5xl font-bold text-navy">
+            MOCKTEST<span class="text-burgundy"> ADDA</span>
+          </div>
+
+          <p class="text-gray-500 mt-1 tracking-widest text-xs hidden sm:block uppercase">
+            Your Trusted Source for Exam News & Free MockTests
+          </p>
+
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden absolute right-3 top-1/2 -translate-y-1/2 p-2 text-navy hover:text-burgundy transition-colors"
+          aria-label="Toggle menu">
+
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+
+        </button>
+
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden flex-col items-center gap-4 py-4 border-b border-gray-200 md:hidden">
+
+        <a href="https://freemocktestadda.in/"
+          class="text-sm font-medium text-navy/80 hover:text-burgundy transition-colors uppercase tracking-wider">
+          Home
+        </a>
+
+        <a href="https://freemocktestadda.in/exams.html"
+          class="text-sm font-medium text-navy/80 hover:text-burgundy transition-colors uppercase tracking-wider">
+          Exams
+        </a>
+
+        <a href="https://freemocktestadda.in/results.html"
+          class="text-sm font-medium text-navy/80 hover:text-burgundy transition-colors uppercase tracking-wider">
+          Results
+        </a>
+
+        <a href="https://freemocktestadda.in/admit-cards.html"
+          class="text-sm font-medium text-navy/80 hover:text-burgundy transition-colors uppercase tracking-wider">
+          Admit Cards
+        </a>
+
+        <a href="https://freemocktestadda.in/syllabus.html"
+          class="text-sm font-medium text-navy/80 hover:text-burgundy transition-colors uppercase tracking-wider">
+          Syllabus
+        </a>
+
+        <a href="https://freemocktestadda.in/notifications.html"
+          class="text-sm font-medium text-navy/80 hover:text-burgundy transition-colors uppercase tracking-wider">
+          Notifications
+        </a>
+
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center justify-center gap-10 pt-4 pb-2 border-b border-gray-200">
+
+        <a href="https://freemocktestadda.in/"
+          class="text-sm font-medium text-navy/80 hover:text-burgundy transition-colors uppercase tracking-wider">
+          Home
+        </a>
+
+        <a href="https://freemocktestadda.in/exams.html"
+          class="text-sm font-medium text-navy/80 hover:text-burgundy transition-colors uppercase tracking-wider">
+          Exams
+        </a>
+
+        <a href="https://freemocktestadda.in/results.html"
+          class="text-sm font-medium text-navy/80 hover:text-burgundy transition-colors uppercase tracking-wider">
+          Results
+        </a>
+
+        <a href="https://freemocktestadda.in/admit-cards.html"
+          class="text-sm font-medium text-navy/80 hover:text-burgundy transition-colors uppercase tracking-wider">
+          Admit Cards
+        </a>
+
+        <a href="https://freemocktestadda.in/syllabus.html"
+          class="text-sm font-medium text-navy/80 hover:text-burgundy transition-colors uppercase tracking-wider">
+          Syllabus
+        </a>
+
+        <a href="https://freemocktestadda.in/notifications.html"
+          class="text-sm font-medium text-navy/80 hover:text-burgundy transition-colors uppercase tracking-wider">
+          Notifications
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+
+    if (btn && menu) {
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('flex');
+      });
+    }
+  </script>
+
+</body>
+
+</html>

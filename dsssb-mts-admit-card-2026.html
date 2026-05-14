@@ -87,76 +87,7 @@
   }
 </script>
 
-  
-  <style>
-    body {
-      font-family: 'Source Serif 4', Georgia, serif;
-      background-color: #FAF8F5;
-    }
-   
-
-    
-    h1, h2, h3, h4, h5, h6 {
-      font-family: 'Playfair Display', Georgia, serif;
-    }
-    
-    .ui-text {
-      font-family: 'Inter', system-ui, sans-serif;
-    }
-    
-    /* Breaking News Marquee */
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    
-    .animate-marquee {
-      animation: marquee 10s linear infinite;
-    }
-    
-    /* Fade In Animation */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .animate-fade-in {
-      animation: fadeIn 0.5s ease-out forwards;
-    }
-    
-    
-    /* News Card Hover */
-    .news-card {
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(26, 35, 50, 0.08);
-    }
-    
-    .news-card:hover {
-      box-shadow: 0 4px 16px rgba(26, 35, 50, 0.12);
-      border-color: rgba(139, 38, 53, 0.3);
-    }
-    
-    /* Double Border */
-    .border-double-line {
-      border-top: 1px solid #d1d5db;
-      border-bottom: 3px double #d1d5db;
-      padding: 0.5rem 0;
-    }
-    
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    
-    ::-webkit-scrollbar-track {
-      background: #FAF8F5;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-      background: #8B2635;
-      border-radius: 4px;
-    }
-  </style>
+<link rel="stylesheet" href="/styles.css" />
 </head>
 <body class="min-h-screen bg-cream text-navy">
   
